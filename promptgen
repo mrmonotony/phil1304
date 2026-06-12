@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philosophical Spectrum Alignment: Worldview Diagnostic</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: 'Lora', serif;
+            background-color: #FAF6EE;
+            background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d0c39f' fill-opacity='0.25'%3E%3Cpath d='M40 0l3 10 7-7-3 10 10-3-7 7 10 3h-10l7 7-10-3 3 10-7-7-3 10-3-10-7 7 3-10-10 3 7-7-10-3h10l-7-7 10 3-3-10 7 7zM0 40l3 10 7-7-3 10 10-3-7 7 10 3H10l7 7-10-3 3 10-7-7-3 10-3-10-7 7 3-10-10 3 7-7-10-3h10l-7-7 10 3-3-10 7 7z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            color: #2D2419;
+        }
+
+        h1, h2, h3, h4, .font-cinzel {
+            font-family: 'Cinzel', serif;
+        }
+
+        .card {
+            background: linear-gradient(to bottom right, #ffffff, #FCFAF5);
+            box-shadow: 0 20px 40px -15px rgba(45, 36, 25, 0.15), 0 15px 20px -15px rgba(45, 36, 25, 0.1);
+            border: 1px solid #E6DCC3;
+        }
+
+        /* Likert Scale Specific Styles */
+        .likert-btn {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .likert-btn:hover {
+            transform: scale(1.08);
+        }
+
+        .likert-btn.active {
+            box-shadow: 0 0 0 4px rgba(139, 109, 67, 0.3);
+            transform: scale(1.12);
+        }
+
+        .btn-nav {
+            transition: all 0.3s ease;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #8B6D43 0%, #614A2A 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #614A2A 0%, #46341D 100%);
+            transform: scale(1.02);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .progress-bar-fill {
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Distinct Color Themes for Religion Profiles */
+        .color-christianity { color: #5B4B8A; }
+        .color-islam { color: #1B4D3E; }
+        .color-judaism { color: #0F2D59; }
+        .color-hinduism { color: #D95D39; }
+        .color-buddhism { color: #E09F3E; }
+
+        .bg-christianity-light { background-color: rgba(91, 75, 138, 0.1); }
+        .bg-islam-light { background-color: rgba(27, 77, 62, 0.1); }
+        .bg-judaism-light { background-color: rgba(15, 45, 89, 0.1); }
+        .bg-hinduism-light { background-color: rgba(217, 93, 57, 0.1); }
+        .bg-buddhism-light { background-color: rgba(224, 159, 62, 0.1); }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 sm:p-8">
+
+    <main class="w-full max-w-4xl card rounded-2xl p-6 sm:p-12 relative overflow-hidden my-4">
+        
+        <!-- Elegant corner accents to replicate a sacred text feel -->
+        <div class="absolute top-0 left-0 w-16 h-16 border-t-4 border-l-4 border-[#8B6D43] opacity-30 rounded-tl-xl m-4 pointer-events-none"></div>
+        <div class="absolute top-0 right-0 w-16 h-16 border-t-4 border-r-4 border-[#8B6D43] opacity-30 rounded-tr-xl m-4 pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-16 h-16 border-b-4 border-l-4 border-[#8B6D43] opacity-30 rounded-bl-xl m-4 pointer-events-none"></div>
+        <div class="absolute bottom-0 right-0 w-16 h-16 border-b-4 border-r-4 border-[#8B6D43] opacity-30 rounded-br-xl m-4 pointer-events-none"></div>
+
+        <!-- 1. Intro Screen -->
+        <div id="intro-screen" class="flex flex-col items-center justify-center text-center space-y-8 fade-in">
+            <div class="flex flex-wrap justify-center gap-6 text-4xl sm:text-5xl mb-2 opacity-90">
+                <i class="fa-solid fa-compass color-christianity hover:scale-110 transition-transform" title="Ethical Love"></i>
+                <i class="fa-solid fa-users color-islam hover:scale-110 transition-transform" title="Absolute Unity"></i>
+                <i class="fa-solid fa-book-open color-judaism hover:scale-110 transition-transform" title="Active Wisdom"></i>
+                <i class="fa-solid fa-infinity color-hinduism hover:scale-110 transition-transform" title="Cosmic Cycle"></i>
+                <i class="fa-solid fa-brain color-buddhism hover:scale-110 transition-transform" title="Inner Focus"></i>
+            </div>
+            
+            <div class="space-y-2">
+                <h1 class="text-4xl sm:text-6xl font-bold text-[#46341D] tracking-wide">
+                    Worldview Alignment
+                </h1>
+                <p class="text-md sm:text-lg text-[#8B6D43] font-cinzel tracking-widest uppercase">Philosophical Spectrum Diagnostic</p>
+            </div>
+
+            <p class="text-base sm:text-lg text-gray-700 max-w-2xl leading-relaxed">
+                Rather than evaluating surface-level dogmas or using overt theological terms, this advanced alignment diagnostic explores your deepest assumptions about existence, ethics, community, and the human condition. Rate your level of agreement across 15 objective, reworded philosophical prompts to reveal your core worldview affinity.
+            </p>
+            
+            <div class="w-full max-w-md space-y-4 pt-4">
+                <div class="text-left">
+                    <label for="user-name" class="block text-xs font-bold text-[#8B6D43] uppercase tracking-wider mb-2">Your Name / Title</label>
+                    <input type="text" id="user-name" placeholder="Enter your name to begin..." 
+                           class="w-full px-5 py-4 rounded-xl bg-[#FAF8F3] border-2 border-[#E6DCC3] focus:outline-none focus:ring-2 focus:ring-[#8B6D43] focus:border-transparent text-lg shadow-sm transition-all text-center">
+                </div>
+                <button onclick="startQuiz()" class="w-full btn-primary text-white font-cinzel font-bold text-lg py-4 rounded-xl shadow-lg hover:shadow-xl flex items-center justify-center gap-2">
+                    Begin Journey <i class="fa-solid fa-compass"></i>
+                </button>
+                <p id="name-error" class="text-red-600 text-sm hidden font-semibold">Please enter your name to proceed.</p>
+            </div>
+        </div>
+
+        <!-- 2. Quiz Screen -->
+        <div id="quiz-screen" class="hidden flex-col space-y-8 fade-in">
+            <!-- Progress Header -->
+            <div class="flex justify-between items-center border-b border-[#E6DCC3] pb-4">
+                <div class="flex-1">
+                    <div class="flex justify-between text-xs sm:text-sm font-semibold text-[#8B6D43] uppercase tracking-widest mb-2">
+                        <span id="question-tracker">Statement 1 of 15</span>
+                        <span id="category-badge" class="font-cinzel border border-[#8B6D43] px-2 py-0.5 rounded text-xs">Category</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div id="progress-bar" class="bg-[#8B6D43] h-2 rounded-full progress-bar-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="ml-6 text-4xl text-[#8B6D43] opacity-80" id="current-icon-container">
+                    <i class="fa-solid fa-hands-praying" id="current-icon"></i>
+                </div>
+            </div>
+
+            <!-- Statement Display -->
+            <div class="py-6 text-center space-y-6">
+                <h4 class="text-xs font-bold text-[#8B6D43] uppercase tracking-widest font-cinzel">Rate Your Level of Personal Agreement</h4>
+                <h2 id="question-text" class="text-xl sm:text-2xl font-semibold text-[#2D2419] leading-relaxed max-w-3xl mx-auto px-4 min-h-[5.5rem]">
+                    Statement loading...
+                </h2>
+            </div>
+
+            <!-- Likert Scale Selector -->
+            <div class="max-w-2xl mx-auto w-full px-2">
+                <div class="grid grid-cols-5 gap-2 sm:gap-4 justify-items-center relative">
+                    <!-- Likert Button 1 -->
+                    <button onclick="selectScore(1)" id="likert-1" class="likert-btn w-12 h-12 sm:w-16 sm:h-16 rounded-full border-2 border-red-200 bg-red-50 text-red-900 font-bold text-lg sm:text-xl flex items-center justify-center shadow-sm">
+                        1
+                    </button>
+                    <!-- Likert Button 2 -->
+                    <button onclick="selectScore(2)" id="likert-2" class="likert-btn w-12 h-12 sm:w-16 sm:h-16 rounded-full border-2 border-orange-200 bg-orange-50 text-orange-900 font-bold text-lg sm:text-xl flex items-center justify-center shadow-sm">
+                        2
+                    </button>
+                    <!-- Likert Button 3 -->
+                    <button onclick="selectScore(3)" id="likert-3" class="likert-btn w-12 h-12 sm:w-16 sm:h-16 rounded-full border-2 border-yellow-200 bg-yellow-50 text-yellow-900 font-bold text-lg sm:text-xl flex items-center justify-center shadow-sm">
+                        3
+                    </button>
+                    <!-- Likert Button 4 -->
+                    <button onclick="selectScore(4)" id="likert-4" class="likert-btn w-12 h-12 sm:w-16 sm:h-16 rounded-full border-2 border-teal-100 bg-teal-50/50 text-teal-900 font-bold text-lg sm:text-xl flex items-center justify-center shadow-sm">
+                        4
+                    </button>
+                    <!-- Likert Button 5 -->
+                    <button onclick="selectScore(5)" id="likert-5" class="likert-btn w-12 h-12 sm:w-16 sm:h-16 rounded-full border-2 border-emerald-200 bg-emerald-50 text-emerald-900 font-bold text-lg sm:text-xl flex items-center justify-center shadow-sm">
+                        5
+                    </button>
+                </div>
+                
+                <!-- Labels -->
+                <div class="flex justify-between text-xs sm:text-sm text-gray-500 font-medium px-1 sm:px-3 pt-4">
+                    <span class="w-1/3 text-left leading-tight text-red-700">1 — Strongly Disagree</span>
+                    <span class="w-1/3 text-center leading-tight text-amber-700">3 — Neutral / Uncertain</span>
+                    <span class="w-1/3 text-right leading-tight text-emerald-700">5 — Strongly Agree</span>
+                </div>
+            </div>
+
+            <!-- Navigation Controls -->
+            <div class="flex justify-between items-center pt-8 border-t border-[#E6DCC3] max-w-2xl mx-auto w-full">
+                <button onclick="prevQuestion()" id="btn-back" class="btn-nav px-5 py-2.5 rounded-lg border border-gray-300 hover:bg-gray-100 text-gray-700 text-sm font-semibold flex items-center gap-2 disabled:opacity-40 disabled:pointer-events-none">
+                    <i class="fa-solid fa-arrow-left"></i> Back
+                </button>
+                <button onclick="nextQuestion()" id="btn-next" class="btn-nav px-5 py-2.5 rounded-lg bg-[#8B6D43] text-white hover:bg-[#614A2A] text-sm font-semibold flex items-center gap-2 disabled:opacity-40 disabled:pointer-events-none">
+                    Skip Statement <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 3. Result Screen -->
+        <div id="result-screen" class="hidden flex-col space-y-8 fade-in">
+            <div class="text-center space-y-3">
+                <h2 class="text-xl sm:text-2xl font-cinzel text-[#8B6D43]" id="result-greeting">Spiritual Journey Report for [Name]</h2>
+                <h1 class="text-3xl sm:text-5xl font-bold text-[#46341D] tracking-wide">Primary Affinity</h1>
+                <div class="flex items-center justify-center gap-4 text-4xl sm:text-5xl py-2" id="primary-result-header">
+                    <!-- Dynamic Title and Icon goes here -->
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mt-6">
+                <!-- Detailed Tenets & Connection Report -->
+                <div class="lg:col-span-7 bg-[#FCFAF5] p-5 sm:p-8 rounded-xl border border-[#E6DCC3] shadow-inner space-y-6">
+                    <div class="border-b border-[#E6DCC3] pb-3">
+                        <h3 class="text-xl sm:text-2xl font-cinzel font-bold text-[#46341D]">Philosophical Alignment Report</h3>
+                        <p class="text-xs text-[#8B6D43] uppercase tracking-wider font-semibold">How your values mesh with this tradition</p>
+                    </div>
+                    
+                    <div id="report-content" class="text-gray-700 leading-relaxed space-y-4 text-base">
+                        <!-- Dynamic Report text based on analysis -->
+                    </div>
+
+                    <div class="pt-4 border-t border-[#E6DCC3] space-y-3">
+                        <h4 class="text-sm font-bold uppercase tracking-widest text-[#8B6D43]">Core Harmonizing Tenets</h4>
+                        <div id="harmonizing-points" class="grid grid-cols-1 gap-2 text-sm text-gray-600">
+                            <!-- Injected bullet points based on matching metrics -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Graphic Analysis Card (Chart.js Container) -->
+                <div class="lg:col-span-5 bg-white p-5 sm:p-6 rounded-xl border border-[#E6DCC3] shadow-sm flex flex-col items-center justify-center space-y-6 h-full">
+                    <div class="text-center">
+                        <h3 class="text-lg sm:text-xl font-cinzel font-bold text-gray-800">Affinity Spectrum</h3>
+                        <p class="text-xs text-gray-500">Relative distribution based on normalized scoring</p>
+                    </div>
+                    
+                    <div class="relative w-full aspect-square max-w-[280px]">
+                        <canvas id="affinityChart"></canvas>
+                    </div>
+
+                    <!-- Small Legend Detail -->
+                    <div id="custom-legend" class="grid grid-cols-2 gap-3 w-full text-xs text-gray-600 font-semibold pt-2">
+                        <!-- Custom Legend injected dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 pt-6">
+                <button onclick="resetQuiz()" class="w-full sm:w-auto px-8 py-3.5 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold rounded-xl transition-colors font-cinzel shadow-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-rotate-right"></i> Retake Journey
+                </button>
+                <button onclick="window.print()" class="w-full sm:w-auto px-8 py-3.5 bg-zinc-800 hover:bg-zinc-900 text-white font-bold rounded-xl transition-colors font-cinzel shadow-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-print"></i> Export Alignment
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Data Structure for Religions
+        const religions = {
+            Christianity: { 
+                id: "Christianity", 
+                color: "#5B4B8A", 
+                icon: "fa-cross", 
+                bgClass: "bg-christianity-light",
+                tagline: "Grace, Redemption, and Community",
+                summary: "You possess a profound resonance with the Christian path. Your responses reflect values aligned with the transformational power of unconditional love, grace, and collective worship. Rather than emphasizing purely transactional laws, you connect deeply with the ethos of absolute spiritual redemption, congregational fellowship, and a worldview where human actions find completion in divine forgiveness and benevolence."
+            },
+            Islam: { 
+                id: "Islam", 
+                color: "#1B4D3E", 
+                icon: "fa-star-and-crescent", 
+                bgClass: "bg-islam-light",
+                tagline: "Submission, Discipline, and Absolute Unity",
+                summary: "Your worldview aligns strongly with the core pillars of Islam. You find meaning in profound spiritual discipline, structured acts of prayer and charity, and the concept of absolute, uncompromised divine unity. You deeply respect absolute moral accountability, community solidarity (Ummah), and the submission of human desire to an ultimate, supreme, and perfectly ordered creator."
+            },
+            Judaism: { 
+                id: "Judaism", 
+                color: "#0F2D59", 
+                icon: "fa-star-of-david", 
+                bgClass: "bg-judaism-light",
+                tagline: "Covenant, Action, and Holy Inquiry",
+                summary: "Your spiritual matrix is strongly aligned with Judaism. You prioritize justice, ethical living, and repairing the physical world (Tikkun Olam) over abstract afterlife outcomes. You find profound beauty in a legacy structured on covenant, holy study, and intellectual debate, valuing the exploration and interrogation of text rather than blind or passive alignment."
+            },
+            Hinduism: { 
+                id: "Hinduism", 
+                color: "#D95D39", 
+                icon: "fa-om", 
+                bgClass: "bg-hinduism-light",
+                tagline: "Cosmic Essence, Karma, and Eternal Duty",
+                summary: "Your philosophical perspective harmonizes with Hinduism (Sanatana Dharma). You perceive reality as deeply interconnected through an underlying cosmic essence (Brahman) that resides within all consciousness (Atman). You recognize the universal balance of Karma, the necessity of personal duty (Dharma), and understand spiritual growth as a patient, multifaceted evolutionary cycle of the soul."
+            },
+            Buddhism: { 
+                id: "Buddhism", 
+                color: "#E09F3E", 
+                icon: "fa-dharmachakra", 
+                bgClass: "bg-buddhism-light",
+                tagline: "Mindfulness, Liberation, and the Middle Way",
+                summary: "Your responses reflect a powerful affinity with Buddhist principles. You favor inward-looking transformation, mindfulness, and the elimination of suffering through the release of attachments. You strongly align with the concept of the Middle Way—avoiding harmful extremes—and value historical, enlightened guides over institutional theological demands."
+            }
+        };
+
+        // 15 Balanced Questions mapping to Likert Scale responses (stripped of overt terminology)
+        const questions = [
+            {
+                id: 1,
+                text: "I believe there is a singular, conscious source of ultimate order in the universe that actively cares about and guides human ethical behavior.",
+                category: "Universal Order",
+                icon: "fa-compass",
+                weights: { Judaism: 3, Christianity: 3, Islam: 3, Hinduism: 0, Buddhism: 0 }
+            },
+            {
+                id: 2,
+                text: "I believe that achieving ultimate inner peace and liberation is a gift of unconditional acceptance and forgiveness, rather than something earned through rigid compliance with rules.",
+                category: "Grace & Peace",
+                icon: "fa-heart",
+                weights: { Christianity: 4, Judaism: 1, Islam: 1, Hinduism: 0, Buddhism: 0 }
+            },
+            {
+                id: 3,
+                text: "I believe true harmony is achieved when we completely align and surrender our personal desires to a singular, absolute supreme principle that governs everything.",
+                category: "Absolute Principle",
+                icon: "fa-scale-balanced",
+                weights: { Islam: 4, Judaism: 2, Christianity: 1, Hinduism: 0, Buddhism: 0 }
+            },
+            {
+                id: 4,
+                text: "I believe that everything in existence is interconnected by a single, ultimate cosmic energy that lives inside every one of us as a spark of conscious awareness.",
+                category: "Interconnectedness",
+                icon: "fa-infinity",
+                weights: { Hinduism: 4, Buddhism: 1, Christianity: 0, Islam: 0, Judaism: 0 }
+            },
+            {
+                id: 5,
+                text: "I believe our current circumstances are the direct consequence of our past actions, and that this moral cause-and-effect system continues across successive existences.",
+                category: "Action & Consequence",
+                icon: "fa-arrow-right-arrow-left",
+                weights: { Hinduism: 4, Buddhism: 3, Christianity: 0, Islam: 0, Judaism: 0 }
+            },
+            {
+                id: 6,
+                text: "I believe that human dissatisfaction stems directly from our cravings and attachments, and we can only find peace by letting go of our ego and expectations.",
+                category: "Letting Go",
+                icon: "fa-wind",
+                weights: { Buddhism: 4, Hinduism: 2, Christianity: 0, Islam: 0, Judaism: 0 }
+            },
+            {
+                id: 7,
+                text: "I prioritize self-observation, conscious discipline, and a balanced lifestyle that avoids extreme behaviors to achieve mental clarity and peace.",
+                category: "Self-Discipline",
+                icon: "fa-brain",
+                weights: { Buddhism: 4, Hinduism: 1, Christianity: 0, Islam: 0, Judaism: 0 }
+            },
+            {
+                id: 8,
+                text: "I believe our primary life focus should be on practical ethics, establishing societal justice, and actively improving our physical communities here and now.",
+                category: "Social Purpose",
+                icon: "fa-hands-holding",
+                weights: { Judaism: 4, Christianity: 2, Islam: 2, Hinduism: 0, Buddhism: 0 }
+            },
+            {
+                id: 9,
+                text: "I find immense value in structured daily habits, regular moments of quiet reflection, and mindful consumption habits to keep my body and mind clean and disciplined.",
+                category: "Daily Routines",
+                icon: "fa-clock",
+                weights: { Judaism: 3, Islam: 4, Christianity: 1, Hinduism: 1, Buddhism: 0 }
+            },
+            {
+                id: 10,
+                text: "I believe that a good life means honoring my responsibilities to family and society while actively avoiding causing harm to any living thing.",
+                category: "Responsibility",
+                icon: "fa-shield-halved",
+                weights: { Hinduism: 4, Buddhism: 3, Christianity: 0, Islam: 0, Judaism: 0 }
+            },
+            {
+                id: 11,
+                text: "I find deep value in highly organized community actions, such as shared journeys, large assemblies, and structured, mandatory systems of charitable giving.",
+                category: "Collective Effort",
+                icon: "fa-users",
+                weights: { Islam: 4, Christianity: 2, Judaism: 2, Hinduism: 1, Buddhism: 0 }
+            },
+            {
+                id: 12,
+                text: "I highly value gathering with others to sing together, sharing symbolic community actions, and celebrating messages of hope, reconciliation, and profound forgiveness.",
+                category: "Shared Expression",
+                icon: "fa-music",
+                weights: { Christianity: 4, Judaism: 1, Islam: 1, Hinduism: 1, Buddhism: 0 }
+            },
+            {
+                id: 13,
+                text: "I believe that there exists a primary, perfectly preserved written source of truth that should serve as an unchanging, absolute instruction manual for living.",
+                category: "Foundational Text",
+                icon: "fa-book",
+                weights: { Islam: 4, Christianity: 2, Judaism: 2, Hinduism: 0, Buddhism: 0 }
+            },
+            {
+                id: 14,
+                text: "I believe that exemplary historical guides are best viewed as wise teachers who demonstrated pathfinding wisdom, rather than as supernatural, divine beings.",
+                category: "Inspirational Guides",
+                icon: "fa-user-graduate",
+                weights: { Buddhism: 4, Hinduism: 2, Christianity: 0, Islam: 0, Judaism: 0 }
+            },
+            {
+                id: 15,
+                text: "I believe that intellectual growth and clarity are best achieved through deep study, testing ideas, and respectful debate rather than simply accepting fixed rules.",
+                category: "Inquiry & Dialogue",
+                icon: "fa-comments",
+                weights: { Judaism: 4, Buddhism: 3, Christianity: 1, Islam: 1, Hinduism: 1 }
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let userName = "";
+        let userResponses = new Array(questions.length).fill(null); // Will store responses (1-5)
+        let chartInstance = null;
+
+        // Dynamic visual updates
+        function startQuiz() {
+            const nameInput = document.getElementById('user-name').value.trim();
+            const errorElement = document.getElementById('name-error');
+            
+            if (nameInput === "") {
+                errorElement.classList.remove('hidden');
+                return;
+            }
+            
+            userName = nameInput;
+            errorElement.classList.add('hidden');
+            
+            document.getElementById('intro-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+            document.getElementById('quiz-screen').classList.add('flex');
+            
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const currentQ = questions[currentQuestionIndex];
+            
+            // Progress Calculation
+            const progressPercent = ((currentQuestionIndex) / questions.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+            document.getElementById('question-tracker').innerText = `Statement ${currentQuestionIndex + 1} of ${questions.length}`;
+            document.getElementById('category-badge').innerText = currentQ.category;
+
+            // Update Icons
+            const iconElement = document.getElementById('current-icon');
+            iconElement.className = `fa-solid ${currentQ.icon}`;
+
+            // Update Prompt Text
+            const textEl = document.getElementById('question-text');
+            textEl.innerText = `"${currentQ.text}"`;
+            
+            // Reset fade effect
+            textEl.classList.remove('fade-in');
+            void textEl.offsetWidth; // Trigger layout reflow
+            textEl.classList.add('fade-in');
+
+            // Set up Active State on the Likert buttons
+            const activeResponse = userResponses[currentQuestionIndex];
+            for (let i = 1; i <= 5; i++) {
+                const btn = document.getElementById(`likert-${i}`);
+                if (i === activeResponse) {
+                    btn.classList.add('active');
+                    btn.classList.add('ring-4');
+                    btn.classList.add('ring-[#8B6D43]');
+                } else {
+                    btn.classList.remove('active');
+                    btn.classList.remove('ring-4');
+                    btn.classList.remove('ring-[#8B6D43]');
+                }
+            }
+
+            // Navigation Button Updates
+            const btnBack = document.getElementById('btn-back');
+            const btnNext = document.getElementById('btn-next');
+            
+            btnBack.disabled = currentQuestionIndex === 0;
+            
+            if (userResponses[currentQuestionIndex] !== null) {
+                btnNext.innerHTML = `Continue <i class="fa-solid fa-arrow-right"></i>`;
+                btnNext.classList.remove('bg-gray-400');
+                btnNext.classList.add('bg-[#8B6D43]');
+            } else {
+                btnNext.innerHTML = `Skip Statement <i class="fa-solid fa-arrow-right"></i>`;
+            }
+        }
+
+        function selectScore(score) {
+            userResponses[currentQuestionIndex] = score;
+            
+            // Update UI visually for selected rating
+            for (let i = 1; i <= 5; i++) {
+                const btn = document.getElementById(`likert-${i}`);
+                if (i === score) {
+                    btn.classList.add('active');
+                    btn.classList.add('ring-4');
+                    btn.classList.add('ring-[#8B6D43]');
+                } else {
+                    btn.classList.remove('active');
+                    btn.classList.remove('ring-4');
+                    btn.classList.remove('ring-[#8B6D43]');
+                }
+            }
+
+            // Quick visual delay so users observe their choice before smooth transition
+            setTimeout(() => {
+                nextQuestion();
+            }, 300);
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion();
+            }
+        }
+
+        function nextQuestion() {
+            // Default to neutral (3) if they choose to skip by hitting the next button
+            if (userResponses[currentQuestionIndex] === null) {
+                userResponses[currentQuestionIndex] = 3; 
+            }
+
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion();
+            } else {
+                calculateResults();
+            }
+        }
+
+        function calculateResults() {
+            // 1. Calculate raw accumulated score and maximum possible scores per religion
+            let rawScores = { Christianity: 0, Islam: 0, Judaism: 0, Hinduism: 0, Buddhism: 0 };
+            let maxScores = { Christianity: 0, Islam: 0, Judaism: 0, Hinduism: 0, Buddhism: 0 };
+            let minScores = { Christianity: 0, Islam: 0, Judaism: 0, Hinduism: 0, Buddhism: 0 };
+
+            questions.forEach((q, index) => {
+                const response = userResponses[index] !== null ? userResponses[index] : 3; // Fallback to neutral if empty
+                
+                for (const [religion, weight] of Object.entries(q.weights)) {
+                    if (weight > 0) {
+                        rawScores[religion] += response * weight;
+                        maxScores[religion] += 5 * weight; // Maximum score when user answers 5
+                        minScores[religion] += 1 * weight; // Minimum score when user answers 1
+                    }
+                }
+            });
+
+            // 2. Normalize raw scores to alignment index (0.0 - 1.0)
+            let affinityIndex = {};
+            let sumOfIndices = 0;
+
+            for (const rel of Object.keys(religions)) {
+                let range = maxScores[rel] - minScores[rel];
+                let userOffset = rawScores[rel] - minScores[rel];
+                affinityIndex[rel] = range > 0 ? (userOffset / range) : 0;
+                sumOfIndices += affinityIndex[rel];
+            }
+
+            // 3. Compute clean relative affinity percentages
+            let affinityPercentages = {};
+            let topReligion = "";
+            let maxPct = -1;
+
+            for (const rel of Object.keys(religions)) {
+                let pct = sumOfIndices > 0 ? Math.round((affinityIndex[rel] / sumOfIndices) * 100) : 20;
+                affinityPercentages[rel] = pct;
+                
+                if (pct > maxPct) {
+                    maxPct = pct;
+                    topReligion = rel;
+                }
+            }
+
+            // Adjust to ensure percentages add up to exactly 100% due to rounding
+            let totalPctSum = Object.values(affinityPercentages).reduce((a, b) => a + b, 0);
+            if (totalPctSum !== 100 && totalPctSum > 0) {
+                let diff = 100 - totalPctSum;
+                affinityPercentages[topReligion] += diff; // Distribute rounding error to the top religion
+            }
+
+            displayResults(topReligion, affinityPercentages);
+        }
+
+        function displayResults(topReligion, percentages) {
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('flex');
+            
+            const resultScreen = document.getElementById('result-screen');
+            resultScreen.classList.remove('hidden');
+            resultScreen.classList.add('flex');
+
+            // Dynamic Greeting
+            document.getElementById('result-greeting').innerText = `Spiritual Journey Diagnostic for ${userName}`;
+
+            // Main Primary Religion Details
+            const activeRelData = religions[topReligion];
+            const headerContainer = document.getElementById('primary-result-header');
+            headerContainer.innerHTML = `
+                <i class="fa-solid ${activeRelData.icon} color-${topReligion.toLowerCase()}"></i>
+                <span class="font-cinzel font-bold text-[#2D2419]">${topReligion}</span>
+            `;
+
+            // Setup custom summary box theme base on result
+            const summaryBox = document.getElementById('report-content');
+            summaryBox.innerHTML = `
+                <div class="p-4 rounded-lg mb-4 text-sm font-semibold uppercase tracking-wider ${activeRelData.bgClass} color-${topReligion.toLowerCase()}">
+                    <i class="fa-solid fa-feather-pointed mr-1"></i> Core Resonance: ${activeRelData.tagline}
+                </div>
+                <p class="text-[#2D2419] text-lg leading-relaxed first-letter:text-5xl first-letter:font-cinzel first-letter:float-left first-letter:mr-2 first-letter:font-bold first-letter:text-[#8B6D43]">
+                    ${activeRelData.summary}
+                </p>
+            `;
+
+            // Populate personalized matching traits
+            renderHarmonizingPoints(topReligion);
+
+            // Chart Rendering
+            const chartLabels = Object.keys(percentages);
+            const chartData = Object.values(percentages);
+            const chartColors = chartLabels.map(l => religions[l].color);
+
+            renderAffinityChart(chartLabels, chartData, chartColors);
+            renderCustomLegend(percentages);
+        }
+
+        function renderHarmonizingPoints(topReligion) {
+            const listContainer = document.getElementById('harmonizing-points');
+            listContainer.innerHTML = ''; // Reset list
+
+            // Find all statements where this religion has weights and the user rated them high (4 or 5)
+            let matches = [];
+            questions.forEach((q, index) => {
+                const rating = userResponses[index];
+                if (q.weights[topReligion] && q.weights[topReligion] >= 3 && rating >= 4) {
+                    matches.push({ text: q.text, rating: rating, category: q.category });
+                }
+            });
+
+            if (matches.length > 0) {
+                // Display up to 3 strong statements of agreement
+                matches.slice(0, 3).forEach(match => {
+                    const item = document.createElement('div');
+                    item.className = 'flex items-start gap-2 bg-stone-50 border border-stone-200 p-3 rounded-lg';
+                    item.innerHTML = `
+                        <span class="text-emerald-600 mt-1"><i class="fa-solid fa-circle-check"></i></span>
+                        <div>
+                            <span class="text-xs uppercase font-bold text-[#8B6D43] tracking-widest">${match.category} (Rated ${match.rating}/5)</span>
+                            <p class="text-gray-700 italic text-xs sm:text-sm mt-0.5">"${match.text}"</p>
+                        </div>
+                    `;
+                    listContainer.appendChild(item);
+                });
+            } else {
+                // Fallback bullet if no high matches found
+                listContainer.innerHTML = `
+                    <div class="flex items-start gap-2 bg-stone-50 border border-stone-200 p-3 rounded-lg">
+                        <span class="text-amber-600 mt-1"><i class="fa-solid fa-circle-exclamation"></i></span>
+                        <div>
+                            <span class="text-xs uppercase font-bold text-[#8B6D43] tracking-widest">General Sync</span>
+                            <p class="text-gray-700 text-xs sm:text-sm mt-0.5">You showed moderate, steady support across the theological framework of this tradition.</p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function renderAffinityChart(labels, data, colors) {
+            const ctx = document.getElementById('affinityChart').getContext('2d');
+            
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            chartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: colors,
+                        borderWidth: 3,
+                        borderColor: '#ffffff',
+                        hoverOffset: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false // We will render a highly custom responsive HTML legend
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ' ' + context.label + ': ' + context.raw + '% Affinity';
+                                }
+                            },
+                            bodyFont: {
+                                family: "'Lora', serif",
+                                size: 14
+                            },
+                            backgroundColor: '#2D2419',
+                            padding: 12,
+                            cornerRadius: 8
+                        }
+                    },
+                    cutout: '65%',
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true,
+                        duration: 1800,
+                        easing: 'easeOutBounce'
+                    }
+                }
+            });
+        }
+
+        function renderCustomLegend(percentages) {
+            const legendContainer = document.getElementById('custom-legend');
+            legendContainer.innerHTML = '';
+
+            Object.entries(percentages).sort((a, b) => b[1] - a[1]).forEach(([religion, val]) => {
+                const data = religions[religion];
+                const legendItem = document.createElement('div');
+                legendItem.className = 'flex items-center gap-2 border-b border-stone-100 pb-1';
+                legendItem.innerHTML = `
+                    <span class="w-3 h-3 rounded-full flex-shrink-0" style="background-color: ${data.color}"></span>
+                    <span class="truncate">${religion}</span>
+                    <span class="ml-auto font-bold text-[#8B6D43]">${val}%</span>
+                `;
+                legendContainer.appendChild(legendItem);
+            });
+        }
+
+        function resetQuiz() {
+            userResponses = new Array(questions.length).fill(null);
+            currentQuestionIndex = 0;
+            
+            document.getElementById('result-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('flex');
+            
+            document.getElementById('intro-screen').classList.remove('hidden');
+            document.getElementById('intro-screen').classList.add('flex');
+            
+            document.getElementById('user-name').value = '';
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
