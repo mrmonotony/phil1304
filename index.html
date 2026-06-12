@@ -1,525 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TCC Library Services - PHIL 1304 Course Hub</title>
-    <!-- Google Fonts aligned with LibGuide Aesthetic -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
-    <!-- FontAwesome for Academic and Navigation Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        tccRed: {
-                            light: '#BA1C36',
-                            DEFAULT: '#8A1538', // LibGuides Maroon Header
-                            dark: '#5C0E24'
-                        },
-                        tccBlue: {
-                            light: '#1E40af',
-                            DEFAULT: '#002D62', // TCC Corporate Navy Blue
-                            dark: '#001E3D'
-                        },
-                        tccGold: '#D4AF37',
-                        tccCream: '#F8F6F0'
-                    },
-                    fontFamily: {
-                        sans: ['"Libre Franklin"', 'sans-serif'],
-                        serif: ['Lora', 'serif'],
-                        display: ['"Playfair Display"', 'serif']
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        .guide-box {
-            border-top: 4px solid #8A1538;
-        }
-        .blue-guide-box {
-            border-top: 4px solid #002D62;
-        }
-        .gold-guide-box {
-            border-top: 4px solid #D4AF37;
-        }
-        /* Custom scrollbar to match prompt_generator.html */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        .dark ::-webkit-scrollbar-track {
-            background: #1f2937;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #8A1538;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #5C0E24;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PHIL 1304 Course Guide Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{
+      --bg:#FAF6EE;
+      --bg2:#FCFAF5;
+      --ink:#2D2419;
+      --muted:#6F604B;
+      --border:#E6DCC3;
+      --accent:#8B6D43;
+      --accent2:#614A2A;
+      --panel:#FFFFFF;
+      --panel-soft:#F8F3E8;
+    }
+
+    html { scroll-behavior: smooth; }
+    body{
+      margin:0;
+      font-family:'Lora', serif;
+      color:var(--ink);
+      background:
+        linear-gradient(135deg, rgba(250,246,238,.97), rgba(252,250,245,.97)),
+        url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d0c39f' fill-opacity='0.18'%3E%3Cpath d='M40 0l3 10 7-7-3 10 10-3-7 7 10 3h-10l7 7-10-3 3 10-7-7-3 10-3-10-7 7 3-10-10 3 7-7-10-3h10l-7-7 10 3-3-10 7 7zM0 40l3 10 7-7-3 10 10-3-7 7 10 3H10l7 7-10-3 3 10-7-7-3 10-3-10-7 7 3-10-10 3 7-7-10-3h10l-7-7 10 3-3-10 7 7z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      background-attachment: fixed;
+    }
+
+    .font-cinzel { font-family:'Cinzel', serif; }
+    .card{
+      background: linear-gradient(to bottom right, #fff, var(--bg2));
+      border:1px solid var(--border);
+      box-shadow: 0 20px 40px -15px rgba(45,36,25,.15), 0 15px 20px -15px rgba(45,36,25,.1);
+    }
+    .hero{
+      background:
+        linear-gradient(135deg, rgba(250,246,238,.92), rgba(252,250,245,.92)),
+        url("https://images.unsplash.com/photo-1507823806703-987a7fca0c43?auto=format&fit=crop&w=1600&q=80") center/cover;
+      border-bottom:1px solid var(--border);
+    }
+    .sidebar-link{
+      transition:all .2s ease;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .sidebar-link:hover{
+      transform:translateX(3px);
+      background:rgba(139,109,67,.10);
+      border-color:rgba(139,109,67,.25);
+    }
+    .pill{
+      background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 100%);
+    }
+    .soft{
+      background:rgba(248,243,232,.7);
+      border:1px solid var(--border);
+    }
+    .nav-anchor{
+      scroll-margin-top: 90px;
+    }
+  </style>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 font-sans transition-colors duration-200">
+<body class="min-h-screen">
 
-    <!-- UTILITY TOP HEADER BAR -->
-    <header class="bg-tccBlue text-white shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 py-2 flex flex-wrap justify-between items-center text-xs font-semibold tracking-wider">
-            <div class="flex space-x-6 items-center">
-                <span class="hover:text-gray-300 cursor-pointer flex items-center">
-                    <i class="fa-solid fa-graduation-cap text-tccGold mr-1.5"></i> TARRANT COUNTY COLLEGE
-                </span>
-                <span class="hidden md:inline text-gray-400">|</span>
-                <span class="hidden md:inline text-gray-300">SOUTHEAST CAMPUS LEARNING COMMONS</span>
-            </div>
-            <div class="flex items-center space-x-4 mt-2 sm:mt-0">
-                <a href="https://libguides.tccd.edu/phil1304se" target="_blank" class="hover:text-tccGold transition-colors flex items-center">
-                    <i class="fa-solid fa-circle-info mr-1"></i> TCC LibGuides Official Site
-                </a>
-                <span>•</span>
-                <button onclick="toggleDarkMode()" id="theme-toggle" class="bg-tccRed hover:bg-tccRed-light text-white px-3 py-1 rounded flex items-center space-x-1 transition-all text-xs">
-                    <i class="fa-solid fa-moon" id="theme-toggle-icon"></i>
-                    <span id="theme-toggle-text">Dark Mode</span>
-                </button>
-            </div>
-        </div>
-    </header>
+  <div class="flex min-h-screen">
+    <aside class="hidden lg:flex w-72 shrink-0 flex-col sticky top-0 h-screen bg-[#2D2419] text-[#FAF6EE] border-r border-[#E6DCC3]">
+      <div class="p-6 border-b border-white/10">
+        <div class="text-xs uppercase tracking-[0.35em] text-[#D0C39F] font-semibold">PHIL 1304</div>
+        <div class="mt-2 text-2xl font-cinzel font-bold leading-tight">Course Guide Hub</div>
+        <p class="mt-3 text-sm text-white/70">
+          World religions resources, course support, and the affinity quiz.
+        </p>
+      </div>
 
-    <!-- LIBGUIDES SITE TITLE & BANNER -->
-    <div class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 py-8 px-4">
-        <div class="max-w-7xl mx-auto">
-            <nav class="text-xs font-bold text-tccRed dark:text-tccGold uppercase tracking-wider mb-2 flex items-center space-x-2">
-                <span>Research Guides</span>
-                <i class="fa-solid fa-chevron-right text-[10px]"></i>
-                <span>Southeast Campus</span>
-                <i class="fa-solid fa-chevron-right text-[10px]"></i>
-                <span class="text-gray-500 dark:text-gray-400">PHIL 1304 SE Home</span>
-            </nav>
-            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center">
-                <div>
-                    <h1 class="font-display text-3xl md:text-5xl text-tccBlue dark:text-white font-extrabold leading-tight">
-                        PHIL 1304: Introduction to World Religions
-                    </h1>
-                    <p class="text-sm md:text-lg text-gray-600 dark:text-gray-300 mt-2 max-w-4xl">
-                        Foundational core curriculum survey course covering major Eastern and Western religious doctrines, historical paths to enlightenment, covenantal systems, and critical inquiry frameworks.
-                    </p>
-                </div>
-                <!-- Badge indicating Code Category -->
-                <div class="mt-4 lg:mt-0 flex flex-row lg:flex-col gap-2">
-                    <div class="bg-tccRed text-white text-center text-xs font-bold px-3 py-2 rounded shadow">
-                        CORE CODE 040
-                    </div>
-                    <div class="bg-tccBlue text-white text-center text-xs font-bold px-3 py-2 rounded shadow">
-                        3 SEMESTER HOURS
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- MAIN PORTAL CONTAINER -->
-    <main class="max-w-7xl mx-auto px-4 py-8">
-        
-        <!-- ROW 1: IMPORTANT LEADERSHIP CARDS (INSTRUCTOR & EMBEDDED LIBRARIAN) -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
-            
-            <!-- INSTRUCTOR CARD: TERESA MOSS (7 Cols) -->
-            <div class="lg:col-span-7 bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 guide-box relative overflow-hidden">
-                <div class="absolute top-0 right-0 bg-tccRed text-white text-[10px] font-bold tracking-widest px-3 py-1 rounded-bl">
-                    FACULTY
-                </div>
-                <div class="flex items-start space-x-4">
-                    <div class="bg-tccRed/10 text-tccRed p-4 rounded-full text-2xl mt-1">
-                        <i class="fa-solid fa-chalkboard-user"></i>
-                    </div>
-                    <div class="space-y-3 w-full">
-                        <div>
-                            <h2 class="text-2xl font-bold font-display text-tccBlue dark:text-white">Teresa Moss</h2>
-                            <p class="text-sm font-semibold text-tccRed dark:text-tccGold">Lead Instructor — Philosophy & Humanities Pathway</p>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs border-t border-b border-gray-100 dark:border-gray-700 py-3">
-                            <span class="flex items-center text-gray-600 dark:text-gray-300">
-                                <i class="fa-solid fa-envelope mr-2 text-tccRed"></i> teresa.moss@tccd.edu
-                            </span>
-                            <span class="flex items-center text-gray-600 dark:text-gray-300">
-                                <i class="fa-solid fa-building mr-2 text-tccRed"></i> Southeast Campus, ESED Hall
-                            </span>
-                            <span class="flex items-center text-gray-600 dark:text-gray-300">
-                                <i class="fa-solid fa-users mr-2 text-tccRed"></i> Office Hours: MW 1:00 PM - 3:00 PM
-                            </span>
-                            <span class="flex items-center text-gray-600 dark:text-gray-300">
-                                <i class="fa-solid fa-circle-exclamation mr-2 text-tccRed"></i> Attendance Limit: 15% Max Absences
-                            </span>
-                        </div>
-                        
-                        <div class="space-y-2">
-                            <h4 class="text-xs font-bold text-gray-500 uppercase tracking-widest">A Note from Prof. Moss:</h4>
-                            <p class="text-xs text-gray-600 dark:text-gray-400 italic leading-relaxed">
-                                "Welcome to our comparative journey through the world's wisdom traditions. In this course, we examine faith, cosmic justice, suffering, and transcendence through an objective, philosophical lens. Please read the Student AI Integrity Policy (FLB LOCAL) and strictly follow the attendance rules. If you are registered with SAR and have tardy/absence leniency accommodations, submit your Notification Form via ClockWork within the first week."
-                            </p>
-                        </div>
-
-                        <!-- Important Course Accords -->
-                        <div class="pt-2 flex flex-wrap gap-2">
-                            <span class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-[10px] font-bold px-2 py-1 rounded">
-                                <i class="fa-solid fa-file-pdf mr-1"></i> Core Syllabus Aligned
-                            </span>
-                            <span class="bg-red-50 dark:bg-red-950/40 text-red-800 dark:text-red-200 text-[10px] font-bold px-2 py-1 rounded">
-                                <i class="fa-solid fa-triangle-exclamation mr-1"></i> 15% Absence Rule Enforced
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- EMBEDDED LIBRARIAN CARD: JONATHAN THORN (5 Cols) -->
-            <div class="lg:col-span-5 bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 blue-guide-box relative overflow-hidden">
-                <div class="absolute top-0 right-0 bg-tccBlue text-white text-[10px] font-bold tracking-widest px-3 py-1 rounded-bl">
-                    LIBRARY SERVICES
-                </div>
-                <div class="flex items-start space-x-4">
-                    <div class="bg-tccBlue/10 text-tccBlue p-4 rounded-full text-2xl mt-1 dark:text-tccGold">
-                        <i class="fa-solid fa-user-graduate"></i>
-                    </div>
-                    <div class="space-y-3 w-full">
-                        <div>
-                            <h2 class="text-2xl font-bold font-display text-tccBlue dark:text-white">Jonathan Thorn</h2>
-                            <p class="text-sm font-semibold text-tccGold">Embedded Librarian & Humanities Specialist</p>
-                        </div>
-                        
-                        <div class="text-xs space-y-2.5 text-gray-600 dark:text-gray-300">
-                            <p class="leading-relaxed">
-                                Jonathan Thorn is embedded directly in our course sections to assist you with academic database mining, world religions source verification, and correct citation formatting (MLA/APA).
-                            </p>
-                            <div class="bg-gray-50 dark:bg-gray-700 p-2.5 rounded border border-gray-150 dark:border-gray-600 space-y-1">
-                                <p class="font-bold text-tccBlue dark:text-tccGold text-[11px]"><i class="fa-regular fa-comments mr-1"></i> CONNECT INSTANTLY:</p>
-                                <p class="text-[10px]">Chat Online: <span class="text-green-600 font-semibold">Available</span></p>
-                                <p class="text-[10px]">Text Hotline: <span class="font-mono">817-769-6940</span></p>
-                            </div>
-                        </div>
-
-                        <div class="pt-2 grid grid-cols-2 gap-2">
-                            <button onclick="openChatSupport()" class="bg-tccBlue hover:bg-tccBlue-dark text-white font-bold py-2 px-3 rounded text-[11px] transition-all text-center uppercase tracking-wide">
-                                <i class="fa-solid fa-comment-dots mr-1"></i> Library Chat
-                            </button>
-                            <a href="https://libguides.tccd.edu/phil1304se" target="_blank" class="bg-tccRed hover:bg-tccRed-dark text-white font-bold py-2 px-3 rounded text-[11px] transition-all text-center uppercase tracking-wide flex items-center justify-center">
-                                <i class="fa-solid fa-bookmark mr-1"></i> Research Guide
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- ROW 2: PRIMARY INTERACTIVE DIGITAL ARTIFACT BUTTONS -->
-        <div class="bg-tccCream dark:bg-gray-800 rounded-lg p-6 mb-8 border border-tccGold/30 shadow-inner flex flex-col md:flex-row items-center justify-between gap-6">
-            <div class="space-y-1.5 max-w-2xl text-center md:text-left">
-                <span class="bg-tccGold text-tccBlue-dark text-[10px] font-extrabold uppercase px-2 py-0.5 rounded">Core Learning Tools</span>
-                <h3 class="text-xl font-bold text-tccBlue dark:text-tccGold font-display">Instructional Prompt Generator</h3>
-                <p class="text-xs text-gray-600 dark:text-gray-300">
-                    Access our TCC-aligned prompt generator tool. Generate highly customized, federal Section 508-compliant learning plans, pre-test configurations, and student exercises designed for major religions.
-                </p>
-            </div>
-            <!-- BUTTON LINKING TO PROMPT GENERATOR -->
-            <a href="prompt_generator.html" class="bg-tccRed hover:bg-tccRed-dark hover:scale-105 transform text-white font-bold py-3.5 px-6 rounded-lg shadow-lg text-xs tracking-wider transition-all uppercase flex items-center space-x-2 shrink-0">
-                <i class="fa-solid fa-wand-magic-sparkles text-tccGold"></i>
-                <span>Open Prompt Generator</span>
-            </a>
-        </div>
-
-        <!-- ROW 3: SYLLABUS DISCOVERY AREA (Interactive tabs showing Core Religion Tenets) -->
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 gold-guide-box mb-8">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
-                <div>
-                    <h3 class="text-xl font-bold font-display text-tccBlue dark:text-white">Core syllabus Module Explorer</h3>
-                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                        Explore the five foundational world religions studied in PHIL 1304. Use these summaries to align research questions.
-                    </p>
-                </div>
-                <span class="text-xs text-tccRed font-mono font-bold uppercase mt-2 md:mt-0 tracking-wider">
-                    <i class="fa-solid fa-layer-group"></i> 5 Traditions of Focus
-                </span>
-            </div>
-
-            <!-- Tab Buttons -->
-            <div class="flex flex-wrap gap-2 border-b border-gray-100 dark:border-gray-700 pb-3 mb-4">
-                <button onclick="showSyllabusTab('hindu')" id="tab-hindu" class="tab-btn active bg-tccBlue text-white text-xs px-3.5 py-2 rounded font-bold uppercase transition-all">Hinduism</button>
-                <button onclick="showSyllabusTab('buddha')" id="tab-buddha" class="tab-btn bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs px-3.5 py-2 rounded font-bold uppercase transition-all">Buddhism</button>
-                <button onclick="showSyllabusTab('judaism')" id="tab-judaism" class="tab-btn bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs px-3.5 py-2 rounded font-bold uppercase transition-all">Judaism</button>
-                <button onclick="showSyllabusTab('christian')" id="tab-christian" class="tab-btn bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs px-3.5 py-2 rounded font-bold uppercase transition-all">Christianity</button>
-                <button onclick="showSyllabusTab('islam')" id="tab-islam" class="tab-btn bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs px-3.5 py-2 rounded font-bold uppercase transition-all">Islam</button>
-            </div>
-
-            <!-- Tab Contents -->
-            <div class="space-y-4">
-                <!-- Hinduism Tab -->
-                <div id="content-hindu" class="tab-content block space-y-3">
-                    <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                        <h4 class="font-bold text-tccBlue dark:text-tccGold text-sm">Philosophy of Hinduism: Brahman, Atman, and Sanatana Dharma</h4>
-                        <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mt-1.5">
-                            Hinduism explores the cosmic order through concepts of action and cosmic consequence (Karma) and cyclical migration of the soul (Samsara). It introduces non-dual metaphysics (Advaita) asserting the essential unity of the individual soul (Atman) and the ultimate universal reality (Brahman).
-                        </p>
-                    </div>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
-                        <span class="bg-tccCream dark:bg-gray-700 p-2 rounded text-center text-tccBlue-dark dark:text-tccGold font-bold">Brahman & Atman</span>
-                        <span class="bg-tccCream dark:bg-gray-700 p-2 rounded text-center text-tccBlue-dark dark:text-tccGold font-bold">Samsara & Karma</span>
-                        <span class="bg-tccCream dark:bg-gray-700 p-2 rounded text-center text-tccBlue-dark dark:text-tccGold font-bold">Moksha Liberation</span>
-                        <span class="bg-tccCream dark:bg-gray-700 p-2 rounded text-center text-tccBlue-dark dark:text-tccGold font-bold">The Upanishads</span>
-                    </div>
-                </div>
-
-                <!-- Buddhism Tab -->
-                <div id="content-buddha" class="tab-content hidden space-y-3">
-                    <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                        <h4 class="font-bold text-tccBlue dark:text-tccGold text-sm">Buddhism: The Diagnosis of Suffering & The Eightfold Path</h4>
-                        <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mt-1.5">
-                            Buddhism offers a diagnostic approach to human existence. It starts with the realization of suffering (Dukkha) and impermanence (Anicca) before recommending self-mastery through the Middle Way and the Noble Eightfold Path to achieve Nirvana.
-                        </p>
-                    </div>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
-                        <span class="bg-tccCream dark:bg-gray-700 p-2 rounded text-center text-tccBlue-dark dark:text-tccGold font-bold">Four Noble Truths</span>
-                        <span class="bg-tccCream dark:bg-gray-700 p-2 rounded text-center text-tccBlue-dark dark:text-tccGold font-bold">Eightfold Path</span>
-                        <span class="bg-tccCream dark:bg-gray-700 p-2 rounded text-center text-tccBlue-dark dark:text-tccGold font-bold">Impermanence (Anicca)</span>
-                        <span class="bg-tccCream dark:bg-gray-700 p-2 rounded text-center text-tccBlue-dark dark:text-tccGold font-bold">Nirvana Resolution</span>
-                    </div>
-                </div>
-
-                <!-- Judaism Tab -->
-                <div id="content-judaism" class="tab-content hidden space-y-3">
-                    <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                        <h4 class="font-bold text-tccBlue dark:text-tccGold text-sm">Judaism: Covenantal Law, Ethics, and Tikkun Olam</h4>
-                        <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mt-1.5">
-                            A monotheistic covenantal tradition grounded in sacred history and Torah law. Judaism emphasizes moral responsibility, justice, and the active human duty to participate in the restoration of cosmic order (Tikkun Olam).
-                        </p>
-                    </div>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
-                        <span class="bg-tccCream dark:bg-gray-700 p-2 rounded text-center text-tccBlue-dark dark:text-tccGold font-bold">Torah Covenant</span>
-                        <span class="bg-tccCream dark:bg-gray-700 p-2 rounded text-center text-tccBlue-dark dark:text-tccGold font-bold">Tikkun Olam</span>
-                        <span class="bg-tccCream dark:bg-gray-700 p-2 rounded text-center text-tccBlue-dark dark:text-tccGold font-bold">Shabbat & Sacrality</span>
-                        <span class="bg-tccCream dark:bg-gray-700 p-2 rounded text-center text-tccBlue-dark dark:text-tccGold font-bold">Talmudic Analysis</span>
-                    </div>
-                </div>
-
-                <!-- Christianity Tab -->
-                <div id="content-christian" class="tab-content hidden space-y-3">
-                    <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                        <h4 class="font-bold text-tccBlue dark:text-tccGold text-sm">Christianity: Incarnation, Radical Love, and Forgiveness</h4>
-                        <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mt-1.5">
-                            Originating from 1st-century Judaism, Christianity centers on the life, crucifixion, and resurrection of Jesus. Core tenets emphasize the Incarnation of God, the restorative capacity of Grace, and the moral duty of loving enemies.
-                        </p>
-                    </div>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
-                        <span class="bg-tccCream dark:bg-gray-700 p-2 rounded text-center text-tccBlue-dark dark:text-tccGold font-bold">Incarnation Theology</span>
-                        <span class="bg-tccCream dark:bg-gray-700 p-2 rounded text-center text-tccBlue-dark dark:text-tccGold font-bold">Saving Grace</span>
-                        <span class="bg-tccCream dark:bg-gray-700 p-2 rounded text-center text-tccBlue-dark dark:text-tccGold font-bold">Beatitudes & Love</span>
-                        <span class="bg-tccCream dark:bg-gray-700 p-2 rounded text-center text-tccBlue-dark dark:text-tccGold font-bold">Atonement models</span>
-                    </div>
-                </div>
-
-                <!-- Islam Tab -->
-                <div id="content-islam" class="tab-content hidden space-y-3">
-                    <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                        <h4 class="font-bold text-tccBlue dark:text-tccGold text-sm">Islam: The Absolute Divine Unity (Tawhid) and The Five Pillars</h4>
-                        <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mt-1.5">
-                            Grounding its metaphysics in absolute divine oneness (Tawhid), Islam posits direct submission (Islam) to God's will. The practice framework is detailed inside the Five Pillars, establishing individual, social, and economic equity.
-                        </p>
-                    </div>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
-                        <span class="bg-tccCream dark:bg-gray-700 p-2 rounded text-center text-tccBlue-dark dark:text-tccGold font-bold">Tawhid Oneness</span>
-                        <span class="bg-tccCream dark:bg-gray-700 p-2 rounded text-center text-tccBlue-dark dark:text-tccGold font-bold">Five Pillars</span>
-                        <span class="bg-tccCream dark:bg-gray-700 p-2 rounded text-center text-tccBlue-dark dark:text-tccGold font-bold">Prophethood (Nubuwwah)</span>
-                        <span class="bg-tccCream dark:bg-gray-700 p-2 rounded text-center text-tccBlue-dark dark:text-tccGold font-bold">The Holy Quran</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ROW 4: ACADEMIC RESOURCES BOXES (Three cards mimicking the LibGuide boxes) -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            
-            <!-- Research Databases Box -->
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-5 border border-gray-200 dark:border-gray-700">
-                <h4 class="font-bold text-tccBlue dark:text-white flex items-center mb-3 text-sm">
-                    <i class="fa-solid fa-database text-tccRed mr-2"></i> Library Databases
-                </h4>
-                <ul class="text-xs space-y-2.5 text-gray-600 dark:text-gray-300">
-                    <li class="flex items-start">
-                        <span class="text-tccRed mr-1.5">•</span>
-                        <span><strong>JSTOR:</strong> Humanities and World Religion journal collection.</span>
-                    </li>
-                    <li class="flex items-start">
-                        <span class="text-tccRed mr-1.5">•</span>
-                        <span><strong>EBSCOhost Academic:</strong> Comprehensive peer-reviewed comparative articles.</span>
-                    </li>
-                    <li class="flex items-start">
-                        <span class="text-tccRed mr-1.5">•</span>
-                        <span><strong>Oxford Islamic Studies:</strong> Reliable monotheistic survey resources.</span>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Academic Policy Compliance Box -->
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-5 border border-gray-200 dark:border-gray-700">
-                <h4 class="font-bold text-tccBlue dark:text-white flex items-center mb-3 text-sm">
-                    <i class="fa-solid fa-scale-balanced text-tccRed mr-2"></i> Academic Integrity
-                </h4>
-                <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mb-2">
-                    In compliance with TCCD Board Policy FLB (LOCAL), you are fully responsible for checking facts in AI-assisted work.
-                </p>
-                <div class="text-[11px] text-tccRed dark:text-tccGold font-bold">
-                    <i class="fa-solid fa-shield-check"></i> Always cite AI-generated outlines!
-                </div>
-            </div>
-
-            <!-- Learning Commons & SAR Support -->
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-5 border border-gray-200 dark:border-gray-700">
-                <h4 class="font-bold text-tccBlue dark:text-white flex items-center mb-3 text-sm">
-                    <i class="fa-solid fa-universal-access text-tccRed mr-2"></i> Accommodations & SAR
-                </h4>
-                <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mb-2">
-                    ClockWork-registered students are entitled to make up missed exams and assignments. Connect with Student Accessibility Resources (SAR) to file an exemption.
-                </p>
-                <span class="text-[11px] hover:underline cursor-pointer text-tccBlue dark:text-tccGold font-bold">
-                    <i class="fa-solid fa-file-circle-check"></i> ClockWork Notification System
-                </span>
-            </div>
-
-        </div>
-
-    </main>
-
-    <!-- MOCK LIBRARIAN LIVE CHAT PANEL -->
-    <div id="chat-box" class="fixed bottom-4 right-4 bg-white dark:bg-gray-800 w-80 rounded-lg shadow-2xl border-t-4 border-tccBlue hidden flex-col overflow-hidden z-50 transition-all duration-300">
-        <div class="p-3 bg-tccBlue text-white flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <i class="fa-solid fa-circle-nodes text-green-400"></i>
-                <span class="text-xs font-bold font-display">TCC Libraries Live Chat</span>
-            </div>
-            <button onclick="closeChatSupport()"><i class="fa-solid fa-xmark text-sm"></i></button>
-        </div>
-        <!-- Chat body -->
-        <div class="p-4 h-64 overflow-y-auto space-y-3 text-xs bg-gray-50 dark:bg-gray-700" id="chat-messages">
-            <div class="p-2 bg-white dark:bg-gray-800 rounded border dark:border-gray-600">
-                <strong class="text-tccBlue dark:text-tccGold block">Jonathan Thorn (Librarian):</strong>
-                Hello! How can I assist you with your PHIL 1304 research or citation formatting today?
-            </div>
-        </div>
-        <div class="p-3 border-t dark:border-gray-700 flex bg-white dark:bg-gray-800">
-            <input type="text" placeholder="Type a message..." class="w-full bg-gray-50 dark:bg-gray-700 text-xs px-2 py-1 rounded focus:outline-none focus:ring-1 focus:ring-tccBlue" id="chat-input" onkeydown="handleChatKey(event)">
-            <button onclick="sendChatMessage()" class="bg-tccBlue text-white text-xs px-3 py-1 rounded ml-2 uppercase font-bold">Send</button>
-        </div>
-    </div>
-
-    <!-- SITE FOOTER -->
-    <footer class="bg-tccBlue text-white mt-16 py-8 border-t-8 border-tccRed">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-xs space-y-4 md:space-y-0">
-            <div class="text-center md:text-left space-y-1">
-                <p class="font-bold text-tccGold uppercase tracking-widest">TARRANT COUNTY COLLEGE — SUCCESS WITHIN REACH</p>
-                <p class="text-gray-400">Arlington, Texas • Southeast Campus Learning Commons & Library</p>
-                <p class="text-gray-500">© 2026 Tarrant County College District. All Rights Reserved. For academic, non-commercial educational use.</p>
-            </div>
-            <div class="flex space-x-6 text-xl">
-                <a href="#" class="hover:text-tccGold"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#" class="hover:text-tccGold"><i class="fa-brands fa-twitter"></i></a>
-                <a href="#" class="hover:text-tccGold"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" class="hover:text-tccGold"><i class="fa-solid fa-comment-dots"></i></a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- INTERACTIVE SCRIPTS -->
-    <script>
-        // Tab system for syllabus explorer
-        function showSyllabusTab(tabId) {
-            // Hide all tab contents
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(el => el.classList.add('hidden'));
-
-            // Remove active classes from buttons
-            const buttons = document.querySelectorAll('.tab-btn');
-            buttons.forEach(btn => {
-                btn.className = "tab-btn bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs px-3.5 py-2 rounded font-bold uppercase transition-all";
-            });
-
-            // Show current active tab content
-            document.getElementById(`content-${tabId}`).classList.remove('hidden');
-
-            // Add active style to selected button
-            const activeBtn = document.getElementById(`tab-${tabId}`);
-            activeBtn.className = "tab-btn bg-tccBlue text-white text-xs px-3.5 py-2 rounded font-bold uppercase transition-all";
-        }
-
-        // Light/Dark mode state management
-        function toggleDarkMode() {
-            const html = document.documentElement;
-            const buttonText = document.getElementById('theme-toggle-text');
-            const icon = document.getElementById('theme-toggle-icon');
-
-            if (html.classList.contains('dark')) {
-                html.classList.remove('dark');
-                buttonText.textContent = "Dark Mode";
-                icon.className = "fa-solid fa-moon";
-            } else {
-                html.classList.add('dark');
-                buttonText.textContent = "Light Mode";
-                icon.className = "fa-solid fa-sun";
-            }
-        }
-
-        // Librarian chat widget toggles
-        function openChatSupport() {
-            const chatBox = document.getElementById('chat-box');
-            chatBox.classList.remove('hidden');
-            chatBox.classList.add('flex');
-        }
-
-        function closeChatSupport() {
-            const chatBox = document.getElementById('chat-box');
-            chatBox.classList.remove('flex');
-            chatBox.classList.add('hidden');
-        }
-
-        function handleChatKey(event) {
-            if (event.key === 'Enter') {
-                sendChatMessage();
-            }
-        }
-
-        function sendChatMessage() {
-            const input = document.getElementById('chat-input');
-            const messages = document.getElementById('chat-messages');
-            const val = input.value.trim();
-            if (!val) return;
-
-            // Append User Message
-            const userMsg = document.createElement('div');
-            userMsg.className = "p-2 bg-tccCream dark:bg-gray-800 rounded border dark:border-gray-600 self-end text-right";
-            userMsg.innerHTML = `<strong class="text-tccRed block">You:</strong> ${val}`;
-            messages.appendChild(userMsg);
-            input.value = "";
-
-            // Auto reply Simulation after a brief delay
-            setTimeout(() => {
-                const autoMsg = document.createElement('div');
-                autoMsg.className = "p-2 bg-white dark:bg-gray-800 rounded border dark:border-gray-600";
-                autoMsg.innerHTML = `<strong class="text-tccBlue dark:text-tccGold block">Jonathan Thorn (Librarian):</strong> Thank you for asking. For sources, I recommend using the **A-Z Databases list** pointing specifically to **JSTOR**. Let me know if you want me to search for specific tenets of that religion!`;
-                messages.appendChild(autoMsg);
-                messages.scrollTop = messages.scrollHeight;
-            }, 1000);
-
-            messages.scrollTop = messages.scrollHeight;
-        }
-    </script>
-</body>
-</html>
+      <nav class="p-4 space-y-2 text-sm">
+        <a class="sidebar-link block rounded-lg px-4 py-3 hover:text-white" href="#top">
+          <i class="fa-solid fa-house mr-2 text-[#D0C39F]"></i>Overview
+        </a>
+        <a class="sidebar-link block rounded-lg px-4 py-3 hover:text-white" href="#instructor">
+          <i class="fa-solid fa-chalkboard-user mr-2 text-[#D0C39F]"></i>Instructor
+        </a>
+        <a class="sidebar-link block rounded-lg px-4 py-3 hover:text-white" href="#tools">
+          <i class="fa-solid fa-wand-magic-sparkles mr-2 text-[#D0C39F]"></i>Learning Tool
+        </a>
+        <a class="sidebar-link block rounded-lg px-4 py-3 hover:text-white" href="#modules">
+          <i class="fa-solid fa-layer-group mr-2 text-[#D0C39F]"></i>Module 
